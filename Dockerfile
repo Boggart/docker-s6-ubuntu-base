@@ -1,6 +1,6 @@
 FROM scratch
 ADD https://cloud-images.ubuntu.com/daily/server/minimal/daily/bionic/current/bionic-minimal-cloudimg-amd64-root.tar.xz /
-ADD https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.0/s6-overlay-amd64.tar.gz /tmp
+ADD https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.0/s6-overlay-amd64.tar.gz /tmp/
 RUN 
 COPY base /
 RUN \
