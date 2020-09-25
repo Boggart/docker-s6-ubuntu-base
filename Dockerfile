@@ -1,12 +1,29 @@
+FROM alpine:latest as rootfs-prep
+RUN \
+ apk add --no-cache \
+        bash \
+        curl \
+        tzdata \
+        xz && \
+ mkdir /rootfs && \
+ curl -o \
+	/rootfs.tar.gz -L \
+	https://cloud-images.ubuntu.com/daily/server/minimal/daily/bionic/current/bionic-minimal-cloudimg-amd64-root.tar.xz && \
+ tar xf \
+        /rootfs.tar.gz -C \
+        /rootfs && \
+ curl -o \
+	/overlay.tar.gz -L \
+        https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.0/s6-overlay-amd64.tar.gz && \
+
+ tar xf \
+        /overlay.tar.gz -C \
+        /rootfs
+
 FROM scratch
-ADD https://cloud-images.ubuntu.com/daily/server/minimal/daily/bionic/current/bionic-minimal-cloudimg-amd64-root.tar.xz /
-ADD https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.0/s6-overlay-amd64.tar.gz /tmp/
-RUN 
+COPY --from=rootfs-prep /rootfs/ /
 COPY base /
 RUN \
-  tar xzf /tmp/s6-overlay-amd64.tar.gz -C / --exclude="./bin" && \
-  tar xzf /tmp/s6-overlay-amd64.tar.gz -C /usr ./bin &&
-  rm /tmp/s6-overlay-amd64.tar.gz && \
   apt-get install -y \
 	apt-utils \
 	locales \
