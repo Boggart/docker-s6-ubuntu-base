@@ -11,4 +11,4 @@ RUN \
   groupmod -g 1000 users && \
   useradd -u 911 -U -d /config -s /bin/false container && \
   usermod -G users container
-CMD /init
+ENTRYPOINT ["/init"]
