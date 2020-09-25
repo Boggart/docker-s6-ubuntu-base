@@ -15,7 +15,6 @@ RUN \
  curl -o \
 	/overlay.tar.gz -L \
         https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.0/s6-overlay-amd64.tar.gz && \
-
  tar xf \
         /overlay.tar.gz -C \
         /rootfs
@@ -23,7 +22,9 @@ RUN \
 FROM scratch
 COPY --from=rootfs-prep /rootfs/ /
 COPY base /
+ENV DEBIAN_FRONTEND=noninteractive
 RUN \
+  apt-get update && \
   apt-get install -y \
 	apt-utils \
 	locales \
