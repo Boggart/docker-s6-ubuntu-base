@@ -6,13 +6,13 @@ RUN \
         tzdata \
         xz && \
  mkdir /rootfs && \
- curl -o \
+ curl -s -o \
 	/rootfs.tar.gz -L \
 	https://cloud-images.ubuntu.com/daily/server/minimal/daily/bionic/current/bionic-minimal-cloudimg-amd64-root.tar.xz && \
  tar xf \
         /rootfs.tar.gz -C \
         /rootfs && \
- curl -o \
+ curl -s -o \
 	/overlay.tar.gz -L \
         https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.0/s6-overlay-amd64.tar.gz && \
  tar xf \
@@ -33,5 +33,6 @@ RUN \
   locale-gen en_US.UTF-8 && \
   groupmod -g 1000 users && \
   useradd -u 911 -U -d /config -s /bin/false container && \
-  usermod -G users container
+  usermod -G users container && \
+  apt-get clean
 ENTRYPOINT ["/init"]
