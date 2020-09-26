@@ -29,11 +29,13 @@ RUN \
 	apt-utils \
 	locales \
 	netcat \
+	gosu \
 	tzdata && \
-  locale-gen en_US.UTF-8 && \
   groupmod -g 1000 users && \
   useradd -u 911 -U -d /config -s /bin/false container && \
   usermod -G users container && \
   apt-get clean  && \
-  rm -rf /var/lib/apt/lists
+  rm -rf /var/lib/apt/lists && \
+  locale-gen en_US.UTF-8
+  
 ENTRYPOINT ["/init"]
