@@ -36,6 +36,7 @@ RUN \
   usermod -G users container && \
   apt-get clean  && \
   rm -rf /var/lib/apt/lists && \
+  mkdir /config && \
   locale-gen en_US.UTF-8
   
 ENTRYPOINT ["/init"]
