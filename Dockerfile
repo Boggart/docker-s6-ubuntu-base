@@ -28,6 +28,7 @@ RUN \
   apt-get install -y \
 	apt-utils \
 	locales \
+	netcat \
 	tzdata && \
   locale-gen en_US.UTF-8 && \
   groupmod -g 1000 users && \
