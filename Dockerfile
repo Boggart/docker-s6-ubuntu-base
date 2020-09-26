@@ -34,5 +34,6 @@ RUN \
   groupmod -g 1000 users && \
   useradd -u 911 -U -d /config -s /bin/false container && \
   usermod -G users container && \
-  apt-get clean
+  apt-get clean  && \
+  rm -rf /var/lib/apt/lists
 ENTRYPOINT ["/init"]
